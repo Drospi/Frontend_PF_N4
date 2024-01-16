@@ -14,11 +14,7 @@ const Register = () => {
         usuario: '',
         clave: '',
     });
-    const [jwt, setJwt] = useState({
-        password: '',
-        email: '',
-        name: '',
-    });
+
 
     const handleInputChange = (e) => {
         setFormulario({ ...formulario, [e.target.name]: e.target.value });
@@ -28,8 +24,6 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setJwt({password: formulario.clave, email: formulario.email, name: formulario.usuario })
-        console.log(jwt);
         console.log(formulario);
         try {
             await fetch(`${URL_BASE}/api/auth/personas`, {
@@ -39,13 +33,7 @@ const Register = () => {
                 },
                 body: JSON.stringify(formulario),
             });
-            await fetch(`${URL_BASE}/api/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(jwt),
-            });
+            
 
 
             // Puedes manejar la respuesta del servidor según tus necesidades
