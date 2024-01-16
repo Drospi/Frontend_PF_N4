@@ -4,8 +4,40 @@ import Bitacoras from "./Bitacoras"
 import Roles from "./Roles"
 import Enlaces from "./Enlaces"
 import Usuarios from "./Usuarios"
+import { useEffect, useState } from "react"
 
 const Header = () => {
+  const [datos, setDatos] = useState(null);
+  const enviarSolicitud = async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    console.log(token);
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/auth/me',{
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      // Manejar la respuesta de la API
+      if (data) {
+        setDatos(data);
+        console.log(datos);
+      }}
+      catch(error) {
+        // Manejar errores de la solicitud
+        console.error('Error al enviar la solicitud:', error);
+      }
+    };
+    useEffect(() => {
+      enviarSolicitud();
+      
+    },[]);
+if (!datos) {
+// Puedes manejar el caso en que no hay datos en la ubicación del navegador
+return <p>No se han proporcionado datos</p>;
+}
   return (
     <>
     <header className='flex flex-col justify-between items-center rounded border border-solid shadow-md bg-white font-bold w-full pb-4 text-3xl'>
@@ -14,10 +46,10 @@ const Header = () => {
       <nav className="flex gap-4 justify-between w-[90%] ml-auto mr-auto text-xl items-center">
         <Link className="hover:text-purple-800 transition" to={"/bitacoras"} Component={Bitacoras}>Bitacoras</Link>
         <Link className="hover:text-purple-800 transition" to={"/roles"}Component={Roles}>Roles</Link>
-        <div className="uppercase">
-        <Link className="text-3xl" to={"/home"} Component={Home}>Mi nombre</Link>
+        <Link to={"/home"} Component={Home} className="uppercase">
+        <h1 className="text-3xl" >{datos.name}</h1>
         <p className="text-xl text-gray-400">Gerenal Manager</p>
-        </div>
+        </Link>
         <Link className="hover:text-purple-800 transition" to={"/enlaces"}Component={Enlaces}>Enlaces</Link>
         <Link className="hover:text-purple-800 transition" to={"/usuarios"}Component={Usuarios}>Usuarios</Link>
       </nav>
