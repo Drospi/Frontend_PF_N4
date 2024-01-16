@@ -24,8 +24,9 @@ const Login = () => {
             },
             body: JSON.stringify(credentials),
           });
-          console.log('Respuesta de la API:', response);
-          enviarSolicitud(response.data.access_token);
+          const data = await response.json();
+          console.log('Respuesta de la API:', data);
+          enviarSolicitud(data.access_token);
           
           // Puedes redirigir o realizar otras acciones después de un registro exitoso
         } catch (error) {
@@ -42,9 +43,9 @@ const Login = () => {
               'Authorization': `Bearer ${token}`,
             },
           });
-    
+          const data = await response.json();
           // Manejar la respuesta de la API
-          if (response.data) {
+          if (data) {
               localStorage.setItem('token', JSON.stringify(token));
               window.location.href = '/home';
               console.log(response.data);
