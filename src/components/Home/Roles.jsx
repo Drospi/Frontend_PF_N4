@@ -36,9 +36,48 @@ return <p>No se han proporcionado datos</p>;
   return (
     <>
     <Header></Header>
-    {datos.map((data) => (
-      <p key={data.idrol}>{data.rol}</p>
+    <div className="container mx-auto mt-8">
+      <form className="flex">
+        <input
+          type="text"
+          placeholder="Nuevo Rol"
+          className="w-full p-2 border border-gray-300 rounded-l"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white p-2 rounded-r"
+        >
+          Agregar
+        </button>
+      </form>
+    </div>
+     <div className="container mx-auto mt-8">
+      <table className="min-w-full bg-white border border-gray-300">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="py-2 px-4 border">ID</th>
+            <th className="py-2 px-4 border">Rol</th>
+            <th className="py-2 px-4 border">Fecha de Creacion</th>
+            <th className="py-2 px-4 border">Fecha de Modificacion</th>
+            <th className="py-2 px-4 border">Usuario Creacion</th>
+            <th className="py-2 px-4 border">Usuario Modificacion</th>
+          </tr>
+        </thead>
+        <tbody>
+        {datos.map((data) => (
+      <tr key={data.idrol} className="hover:bg-gray-100">
+            <td className="py-2 px-4 border">{data.idrol}</td>
+            <td className="py-2 px-4 border">{data.rol}</td>
+            <td className="py-2 px-4 border">{data.fechacreacion}</td>
+            <td className="py-2 px-4 border">{data.fechamodificacion}</td>
+            <td className="py-2 px-4 border">{data.usuariocreacion}</td>
+            <td className="py-2 px-4 border">{data.usuariomodificacion}</td>
+          </tr>
     ))}
+          
+        </tbody>
+      </table>
+    </div>
     </>
   )
 }

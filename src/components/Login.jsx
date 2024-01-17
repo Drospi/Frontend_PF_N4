@@ -45,10 +45,11 @@ const Login = () => {
           });
           const data = await response.json();
           // Manejar la respuesta de la API
+          console.log(data);
           if (data) {
               localStorage.setItem('token', JSON.stringify(token));
+              localStorage.setItem('iduser', JSON.stringify(data.id));
               window.location.href = '/home';
-              console.log(response.data);
           }
         } catch (error) {
           // Manejar errores de la solicitud

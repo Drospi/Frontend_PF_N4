@@ -10,6 +10,7 @@ import Enlaces from './components/Home/Enlaces';
 import Roles from './components/Home/Roles';
 import Update from './components/Home/Update';
 import Usuarios from './components/Home/Usuarios';
+import Paginas from './components/Home/Paginas';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <Route path="/update" Component={Update} />
         <Route path="/usuarios" Component={Usuarios} />
         <Route path="/bitacoras" Component={Bitacoras} />
+        <Route path="/paginas" Component={Paginas} />
+        <Route path="/editar" Component={Update} />
       </Routes>
     </Router>
   )
