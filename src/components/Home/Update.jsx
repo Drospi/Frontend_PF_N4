@@ -12,7 +12,7 @@ const Update = () => {
     segundonombre: '',
     primerapellido: '',
     segundoapellido: '',
-    usuariocreacion: 'registro',
+    idusuariomodificacion: iduser,
     idrol: null,
     usuario: '',
     clave: '',
@@ -20,7 +20,6 @@ const Update = () => {
 
   const enviarSolicitud = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
-    const iduser = JSON.parse(localStorage.getItem('iduser'));
     console.log(token);
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/auth/personas/${iduser}`,{

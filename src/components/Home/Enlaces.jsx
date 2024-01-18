@@ -76,15 +76,8 @@ const Enlaces = () => {
             <td className="py-2 px-4 border">{data.fechamodificacion}</td>
             <td className="py-2 px-4 border">{data.usuariocreacion}</td>
             <td className="py-2 px-4 border">{data.usuariomodificacion}</td>
-
-         
             </tr>
-
-          )
-
-          
-        
-          
+          )          
         })} 
         
           

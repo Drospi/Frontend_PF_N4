@@ -36,7 +36,7 @@ const Bitacoras = () => {
     <div>Bitacoras</div>
     <div className="container mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-4">Bitácoras</h1>
-      <div className="flex w-full gap-4">
+      <div className="w-full gap-4">
         {datos.map((data, index) => (
           <div key={index} className="min-w-xl">
           <div className="bg-white flex justify-between items-center w-full text-gray-300 p-4 rounded shadow-md">

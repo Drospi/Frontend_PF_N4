@@ -3,6 +3,38 @@ import Header from "./Header"
 
 const Roles = () => {
     const [datos, setDatos] = useState(null);
+    const iduser = JSON.parse(localStorage.getItem('iduser'));
+
+    const [credentials, setCredentials] = useState({
+      rol: '',
+      idusuario: iduser,
+    });
+  
+  
+    const handleChange = (e) => {
+      setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      // Aquí puedes manejar la lógica de inicio de sesión, por ejemplo, enviar los datos a la API
+  
+      try {
+        console.log(credentials);
+        await fetch('http://127.0.0.1:8000/api/auth/roles', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(credentials),
+        });
+        location.reload();
+        
+        // Puedes redirigir o realizar otras acciones después de un registro exitoso
+      } catch (error) {
+        console.error('Error al iniciar sesion:', error.response.data);
+        // Puedes manejar errores y mostrar mensajes al usuario
+      }
+    };
   const enviarSolicitud = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
     console.log(token);
@@ -37,10 +69,13 @@ return <p>No se han proporcionado datos</p>;
     <>
     <Header></Header>
     <div className="container mx-auto mt-8">
-      <form className="flex">
+      <form className="flex" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Nuevo Rol"
+          name="rol"
+          value={credentials.rol}
+          onChange={handleChange}
           className="w-full p-2 border border-gray-300 rounded-l"
         />
         <button

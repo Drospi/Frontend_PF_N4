@@ -75,8 +75,8 @@ const Usuarios = () => {
           return(
             <tr key={data.idpersona} className="hover:bg-gray-100">
             <td className="py-2 px-4 border">{data.idpersona}</td>
-            <td className="py-2 px-4 border">{data.primernombre}{data.segundonombre}</td>
-            <td className="py-2 px-4 border">{data.primerapellido}{data.segundoapellido}</td>
+            <td className="py-2 px-4 border">{data.primernombre} {data.segundonombre}</td>
+            <td className="py-2 px-4 border">{data.primerapellido} {data.segundoapellido}</td>
             <td className="py-2 px-4 border">{data.fechacreacion}</td>
             <td className="py-2 px-4 border">{data.fechamodificacion}</td>
             <td className="py-2 px-4 border">{data.usuariocreacion}</td>
