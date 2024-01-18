@@ -5,7 +5,6 @@ import Header from "./Header"
 const Update = () => {
   const URL_BASE = 'http://127.0.0.1:8000';
   const iduser = JSON.parse(localStorage.getItem('iduser'));
-  const [datos, setDatos] = useState(null);
   const [formulario, setFormulario] = useState({
     email: '',
     primernombre: '',
@@ -18,65 +17,68 @@ const Update = () => {
     clave: '',
 });
 
-  const enviarSolicitud = async () => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    console.log(token);
-    try {
-      const response = await fetch(`http://127.0.0.1:8000/api/auth/personas/${iduser}`,{
-        method:'GET'
-      });
-      const data = await response.json();
-      // Manejar la respuesta de la API
-      console.log(data);
-      if (data) {
-        setFormulario({
-          email: data[0].email,
-    primernombre: data[0].primernombre,
-    segundonombre: data[0].segundonombre,
-    primerapellido:   data[0].primerapellido,
-    segundoapellido: data[0].segundoapellido,
-    idrol: data[0].idrol,
-    usuario: data[0].usuario
-        })
-      }}
-      catch(error) {
-        // Manejar errores de la solicitud
-        console.error('Error al enviar la solicitud:', error);
+useEffect(() => {
+  enviarSolicitud();
+  
+},[iduser]);
+
+const token = JSON.parse(localStorage.getItem('token'));
+  
+    const handleInputChange = (e) => {
+      setFormulario({ ...formulario, [e.target.name]: e.target.value });
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    
+      try {
+        const response = await fetch(`${URL_BASE}/api/auth/personas/${iduser}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(formulario),
+        });
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const respuestaJson = await response.json();
+        console.log('Respuesta del servidor:', respuestaJson);
+        // Handle the server response as needed
+    
+      } catch (error) {
+        console.error('Error al realizar la solicitud:', error);
+        // Implement user-friendly error handling, e.g., set an error state
       }
     };
-    useEffect(() => {
-      enviarSolicitud();
-      
-    },[]);
 
-
-
-  const handleInputChange = (e) => {
-      setFormulario({ ...formulario, [e.target.name]: e.target.value });
-
-  };
-
-
-  const handleSubmit = async (e) => {
-      e.preventDefault();
-      console.log(formulario);
-      setDatos({ ...formulario });
+    const enviarSolicitud = async () => {
+      console.log(token);
       try {
-          await fetch(`${URL_BASE}/api/auth/personas/${iduser}`, {
-              method: 'PUT',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(datos),
-          });
-          
-
-
-          // Puedes manejar la respuesta del servidor según tus necesidades
-      } catch (error) {
-          console.error('Error al realizar la solicitud:', error);
-      }
-  };
+        const response = await fetch(`${URL_BASE}/api/auth/personas/${iduser}`,{
+          method:'GET'
+        });
+        const data = await response.json();
+        // Manejar la respuesta de la API
+        console.log(data);
+        if (data) {
+          setFormulario({
+            email: data[0].email,
+      primernombre: data[0].primernombre,
+      segundonombre: data[0].segundonombre,
+      primerapellido:   data[0].primerapellido,
+      segundoapellido: data[0].segundoapellido,
+      idrol: data[0].idrol,
+      usuario: data[0].usuario
+          })
+        }}
+        catch(error) {
+          // Manejar errores de la solicitud
+          console.error('Error al enviar la solicitud:', error);
+        }
+      };
   return (
     <>
     <Header></Header>
@@ -108,6 +110,15 @@ const Update = () => {
             className="w-full p-2 border rounded mb-4"
           />
         </div>
+        <input
+          required
+            type="text"
+            hidden
+            name="idusuariomodificacion"
+            value={formulario.idusuariomodificacion}
+            onChange={handleInputChange}
+            className="w-full p-2 border rounded mb-4"
+          />
         <div className="mb-2">
           <input
           required

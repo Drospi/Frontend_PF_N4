@@ -28,7 +28,6 @@ const Roles = () => {
           body: JSON.stringify(credentials),
         });
         location.reload();
-        
         // Puedes redirigir o realizar otras acciones después de un registro exitoso
       } catch (error) {
         console.error('Error al iniciar sesion:', error.response.data);
@@ -100,8 +99,8 @@ return <p>No se han proporcionado datos</p>;
         </thead>
         <tbody>
         {datos.map((data) => (
-      <tr key={data.idrol} className="hover:bg-gray-100">
-            <td className="py-2 px-4 border">{data.idrol}</td>
+      <tr key={data.id} className="hover:bg-gray-100">
+            <td className="py-2 px-4 border">{data.id}</td>
             <td className="py-2 px-4 border">{data.rol}</td>
             <td className="py-2 px-4 border">{data.fechacreacion}</td>
             <td className="py-2 px-4 border">{data.fechamodificacion}</td>

@@ -7,6 +7,7 @@ const Home = () => {
     const token = JSON.parse(localStorage.getItem('token'));
     const iduser = JSON.parse(localStorage.getItem('iduser'));
     console.log(token);
+    console.log(iduser);
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/auth/personas/${iduser}`,{
         method:'GET'
@@ -34,18 +35,29 @@ return <p>No se han proporcionado datos</p>;
   return (
     <>
     <Header></Header>
-    <div>
-      <h1>Home</h1>
-      <p>{datos[0].usuario}</p>
-      <p>{datos[0].primernombre}</p>
-      <p>{datos[0].segundonombre}</p>
-      <p>{datos[0].primerapellido}</p>
-      <p>{datos[0].segundoapellido}</p>
-      <p>{datos[0].fechacreacion}</p>
-      <p>{datos[0].idrol? 'no tiene rol':datos[0].idrol}</p>
 
-      
-
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md">
+      <h2 className="text-2xl font-bold mb-6">Datos Personales</h2>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-600">Nombres: </label>
+        <p className="mt-1 text-lg font-semibold">{datos.primernombre} {datos.segundonombre}</p>
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-600">Apellidos: </label>
+        <p className="mt-1 text-lg font-semibold">{datos.primerapellido} {datos.segundoapellido}</p>
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-600">Rol: </label>
+        <p className="mt-1 text-lg font-semibold">{datos.idrol}</p>
+      </div>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-600">Creado por:</label>
+        <p className="mt-1 text-lg font-semibold">{datos.usuario}</p>
+      </div>
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-600">Creado en:</label>
+        <p className="mt-1 text-lg font-semibold">{datos.fechacreacion}</p>
+      </div>
     </div>
     </>
     

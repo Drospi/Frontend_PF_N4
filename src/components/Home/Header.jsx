@@ -10,6 +10,11 @@ import Paginas from "./Paginas"
 
 const Header = () => {
   const [user, setUser] = useState(null);
+  const cerrarSesion = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('iduser');
+    window.location.href = '/';
+  }
   const enviarSolicitud = async () => {
     const token = JSON.parse(localStorage.getItem('token'));
     const iduser = JSON.parse(localStorage.getItem('iduser'));
@@ -40,15 +45,16 @@ return <p>No se han proporcionado user</p>;
 }
   return (
     <>
-    <header className='flex flex-col justify-between items-center rounded border border-solid shadow-md bg-white font-bold w-full pb-4 text-3xl'>
+    <header className='flex flex-col justify-between  items-center rounded border border-solid shadow-md bg-white font-bold w-full pb-4 '>
       <img src="img/1.jpg" className="w-full h-[30vh] " alt="" />
+      <button onClick={cerrarSesion} className="bg-red-500 text-white text-md p-4 rounded absolute top-0 right-0">Cerrar sesion</button>
       <div className="w-24 h-24 flex items-center justify-center mt-[-4rem] bg-cyan-300 rounded-full"></div>
       <nav className="flex gap-4 justify-between w-[90%] ml-auto mr-auto text-xl items-center">
         <Link className="hover:text-purple-800 transition" to={"/bitacoras"} Component={Bitacoras}>Bitacoras</Link>
         <Link className="hover:text-purple-800 transition" to={"/roles"}Component={Roles}>Roles</Link>
         <Link className="hover:text-purple-800 transition" to={"/update"}Component={Update}>Editar</Link>
         <Link to={"/home"} Component={Home} className="uppercase">
-        <h1 className="text-3xl" >{user[0].usuario}</h1>
+        <h1 className="text-3xl" >{user.usuario}</h1>
         <p className="text-xl text-gray-400">Gerenal Manager</p>
         </Link>
         
